@@ -47,12 +47,15 @@ const menuItems = [
 ];
 
 export const AppSidebar = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenuItem>
           <SidebarMenuButton asChild className="gap-x-4 h-10 px-4">
-            <Link href="/workflows" prefetch>
+            <Link href="/" prefetch>
               <Image
                 src="/logos/logo.svg"
                 alt="Nodebase"
@@ -72,7 +75,11 @@ export const AppSidebar = () => {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     tooltip={item.title}
-                    isActive={false}
+                    isActive={
+                      item.url === "/"
+                        ? pathname === "/"
+                        : pathname.startsWith(item.url)
+                    }
                     asChild
                     className="gap-x-4 h-10 px-4"
                   >
@@ -87,6 +94,30 @@ export const AppSidebar = () => {
           </SidebarGroup>
         ))}
       </SidebarContent>
+
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Upgrade to Pro"
+              className="gap-x-4 h-10 px-4"
+              onClick={() => {}}
+            >
+              <StarIcon className="h-4 w-4" />
+              <span>Upgrade to Pro</span>
+            </SidebarMenuButton>
+
+            <SidebarMenuButton
+              tooltip="Billing Portal"
+              className="gap-x-4 h-10 px-4"
+              onClick={() => {}}
+            >
+              <CreditCard className="h-4 w-4" />
+              <span>Billing Portal</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 };
