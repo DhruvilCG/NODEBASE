@@ -25,4 +25,5 @@ export const EntityHeader = ({
                 <h1 className="text-lg md:text-xl font-semibold">{title}</h1>
             </div>
         </div>
+    );
  };
