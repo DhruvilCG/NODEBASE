@@ -5,4 +5,3 @@ export const PAGINATION = {
     MIN_PAGE_SIZE: 1,  
 };
 
-// http://localhost:3000/workflows?page=2
