@@ -70,7 +70,7 @@ export const EntityContainer = ({
       <div className="mx-auto max-w-screen-xl w-full flex flex-col gap-y-8 h-full">
         {header}
 
-        <div className="flex flex-cal gap-y-4 h-full">
+        <div className="flex flex-col gap-y-4 h-full">
           {search}
           {children}
         </div>
@@ -93,7 +93,7 @@ export const EntitySearch = ({
 }: EntityListProps) => {
   return (
     <div className="relative ml-auto">
-      <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+      <SearchIcon className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground  " />
       <Input
         className="max-w-[200px] bg-background shadow-none border-border pl-8"
         placeholder={placeholder}
