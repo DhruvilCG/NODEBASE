@@ -50,16 +50,23 @@ export const useRemoveWorkflow = () => {
     trpc.workflows.remove.mutationOptions({
       onSuccess: (data) => {
         toast.success(`Workflow "${data.name}" removed`);
+        queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(
-          trpc.workflows.getMany.queryOptions({})
-        );
-        queryClient.invalidateQueries(
-          trpc.workflows.getOne.queryFilter({ id: data.id }),
+          trpc.workflows.getOne.queryFilter({ id: data.id })
         );
       },
       // onError: (error) => {
-      //   toast.error(`Failed to remove workflow: ${error.message}`); 
+      //   toast.error(`Failed to remove workflow: ${error.message}`);
       // },
     })
   );
-}
+};
+
+/**
+ * Hook to fetch a single workflow using suspense.
+ */
+export const useSuspenseWorkflow = (id: string) => {
+  const trpc = useTRPC();
+  return useSuspenseQuery(trpc.workflows.getOne.queryOptions({ id }));
+};
+
