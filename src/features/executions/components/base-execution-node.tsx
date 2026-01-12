@@ -3,9 +3,9 @@ import { type NodeProps, Position } from "@xyflow/react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { memo, type ReactNode } from "react";
-import { BaseNode, BaseNodeContent } from "./react-flow/base-node";
-import { BaseHandle } from "./react-flow/base-handle";
-import { WorkflowNode } from "./workflow-node";
+import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
+import { BaseHandle } from "@/components/react-flow/base-handle";
+import { WorkflowNode } from "@/components/workflow-node";
 
 interface BaseExecutionNodeProps extends NodeProps {
   icon: LucideIcon | string;
@@ -15,6 +15,7 @@ interface BaseExecutionNodeProps extends NodeProps {
   // status?: NodeStatus;
   onSettings?: () => void;
   onDelete?: () => void;
+  onDoubleClick?: () => void;
 }
 
 export const BaseExecutionNode = memo(
