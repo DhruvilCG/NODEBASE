@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useSuspenseWorkflow, useUpdateWorkflowName } from "@/features/workflows/hooks/use-workflows";
 
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   return (
@@ -25,14 +26,34 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   );
 };
 
+export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
+  const { data: workflow } = useSuspenseWorkflow(workflowId);
+  const updateWorkflow = useUpdateWorkflowName();
+
+  return (
+    <BreadcrumbItem>
+      {workflow.name}
+    </BreadcrumbItem>
+  )
+}
+
 export const EditorBreadcrumbs = ({ workflowId }: { workflowId: string }) => {
   return (
-    <div className="ml-auto">
-      <Button size="sm" onClick={() => {}} disabled={false}>
-        <SaveIcon className="size-4" />
-        Save
-      </Button>
-    </div>
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link prefetch href="/workflows">Workflows</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        {/* <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href={`/workflows/${workflowId}`}>Workflow {workflowId}</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem> */}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 };
 
