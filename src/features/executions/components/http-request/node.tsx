@@ -2,7 +2,7 @@
 
 import { useReactFlow, type Node, type NodeProps } from "@xyflow/react";
 import { GlobeIcon } from "lucide-react";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { BaseExecutionNode } from "../base-execution-node";
 import { HttpRequestDialog, HttpRequestFormValues } from "./dialog";
 
@@ -10,16 +10,17 @@ type HttpRequestNodeData = {
   endpoint?: string;
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
+  status?: "initial" | "loading" | "success" | "error";
 };
 
 type HttpRequestNodeType = Node<HttpRequestNodeData>;
 
 export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  const [nodeStatus, setNodeStatus] = useState<"initial" | "loading" | "success" | "error">(
+    props.data?.status || "initial"
+  );
   const { setNodes } = useReactFlow();
-
-  const nodeStatus = "initial";
 
   const handleOpenSettings = () => setDialogOpen(true);
 
@@ -38,7 +39,18 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
         return node;
       })
     );
+    setDialogOpen(false);
   };
+
+  // Reset status after 2 seconds when execution completes
+  useEffect(() => {
+    if (nodeStatus !== "initial" && nodeStatus !== "loading") {
+      const timer = setTimeout(() => {
+        setNodeStatus("initial");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [nodeStatus]);
 
   const nodeData = props.data;
   const description = nodeData?.endpoint
