@@ -2,11 +2,12 @@ import Handlebars from "handlebars";
 import { NonRetriableError } from "inngest";
 import ky, { type Options as KyOptions } from "ky";
 import type { NodeExecutor } from "@/features/executions/types";
+import { httpRequestChannel } from "@/inngest/channels/http-request";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
-  const safeString= new Handlebars.SafeString(jsonString);
-  
+  const safeString = new Handlebars.SafeString(jsonString);
+
   return safeString;
 });
 
@@ -22,23 +23,47 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
   nodeId,
   context,
   step,
+  publish,
 }) => {
-  // TODO: Publish "Loading" state for http request
+  await publish(
+    httpRequestChannel().status({
+      nodeId,
+      status: "loading",
+    })
+  );
 
   if (!data.endpoint) {
-    // TODO: Publish "Error" state for http request
+    await publish(
+      httpRequestChannel().status({
+        nodeId,
+        status: "error",
+      })
+    );
+
     throw new NonRetriableError("HTTP Request node: No endpoint configured");
   }
 
   if (!data.variableName) {
-    // TODO: Publish "Error" state for http request
+    await publish(
+      httpRequestChannel().status({
+        nodeId,
+        status: "error",
+      })
+    );
+
     throw new NonRetriableError(
       "HTTP Request node: No variable name configured"
     );
   }
 
   if (!data.method) {
-    // TODO: Publish "Error" state for http request
+    await publish(
+      httpRequestChannel().status({
+        nodeId,
+        status: "error",
+      })
+    );
+
     throw new NonRetriableError("HTTP Request node: No method configured");
   }
 
@@ -77,9 +102,12 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     };
   });
 
-  //   const result = await step.run("http-request", async () => context);
-
-  // TODO: Publish "Success" state for http request
+  await publish(
+    httpRequestChannel().status({
+      nodeId,
+      status: "success",
+    })
+  );
 
   return result;
 };
