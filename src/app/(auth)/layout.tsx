@@ -1,11 +1,20 @@
-import AuthLayout from "@/features/auth/components/auth-layout";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+import { Logo } from "@/components/logo";
+
+export default function AuthLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    
     return (
-        <AuthLayout>
-            {children}
-        </AuthLayout>
-    );
-};
-
-export default Layout;
+        <div className="bg-muted relative  flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+            <div className=" absolute top-3 w-full px-4 flex items-center justify-between">
+                <Logo/>
+            </div>
+            <div className="w-full max-w-sm ">
+                {children}
+            </div>
+        </div>
+    )
+}
