@@ -70,7 +70,7 @@ npm run dev:all
 - ✅ **Multi-Provider Integrations** - Google Forms, Stripe, Discord, Slack, and more
 - ✅ **Webhook Support** - Trigger workflows from external services
 - ✅ **Secure Credentials** - Encrypted storage for API keys and tokens
-- ✅ **Execution Tracking** - Full history of workflow runs with detailed logs
+- ✅ **Execution Tracking** - Full history of workflow r    uns with detailed logs
 - ✅ **AI Integration** - OpenAI, Anthropic, and Google AI support
 
 ### Advanced Features
