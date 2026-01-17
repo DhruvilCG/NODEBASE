@@ -1,10 +1,12 @@
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "sonner";
-import { Provider } from "jotai";
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { Provider } from 'jotai'
+import { ThemeProvider } from "@/components/providers/theme-provider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,8 +19,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AutoFlow",
-  description: "Advanced Agentic Coding Platform",
+  title: "AutoFlow | Open Source Workflow Automation",
+  description:
+    "AutoFlow is an open-source workflow automation tool powered by Inngest — build event-driven, serverless workflows easily.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -27,18 +33,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TRPCReactProvider>
-          <NuqsAdapter>
-            <Provider>
-              {children}
-              <Toaster />
-            </Provider>
-          </NuqsAdapter>
-        </TRPCReactProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          <TRPCReactProvider>
+            <NuqsAdapter>
+              <Provider>
+                {children}
+              </Provider>
+            </NuqsAdapter>
+            <Toaster />
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

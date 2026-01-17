@@ -1,38 +1,38 @@
-import {
-  WorkflowsContainer,
-  WorkflowsError,
-  WorkflowsList,
-  WorkflowsLoading,
-} from "@/features/workflows/components/workflows";
-import { workflowsParamsLoader } from "@/features/workflows/server/params-loader";
-import { prefetchWorkflows } from "@/features/workflows/server/prefetch";
-import { requireAuth } from "@/lib/auth-utils";
-import { HydrateClient } from "@/trpc/server";
-import type { SearchParams } from "nuqs/server";
-import { Suspense } from "react";
+import React, { Suspense } from 'react';
+import { WorkflowsContainer, WorkflowsError, WorkflowsList, WorkflowsLoading } from '@/features/workflows/_components/workflows';
+import { prefetchWorkflows } from '@/features/workflows/server/prefetch';
+import { requireAuth } from '@/lib/auth-utils';
+import { HydrateClient } from '@/trpc/server';
 import { ErrorBoundary } from "react-error-boundary";
+import { SearchParams } from 'nuqs/server';
+import { workflowsParamsLoader } from '@/features/workflows/server/params-loader';
 
 type Props = {
-  searchParams: Promise<SearchParams>;
-};
+    searchParams : Promise<SearchParams>
+}
 
-const Page = async ({ searchParams }: Props) => {
-  await requireAuth();
+/**
+ * Server-side workflows page that preloads data and renders with suspense boundaries.
+ * @param {Props} props Component properties.
+ * @param {Promise<SearchParams>} props.searchParams Incoming search params promise from the route.
+ */
+const WorkflowPage = async ({searchParams} : Props) => {
+    await requireAuth();
 
-  const params = await workflowsParamsLoader(searchParams);
-  prefetchWorkflows(params);
+    const params = await workflowsParamsLoader(searchParams)
+    prefetchWorkflows(params);
+    
+    return (
+        <WorkflowsContainer>
+            <HydrateClient>
+                <ErrorBoundary fallback={<WorkflowsError/>}>
+                    <Suspense fallback={<WorkflowsLoading/>}>
+                        <WorkflowsList />
+                    </Suspense>
+                </ErrorBoundary>
+            </HydrateClient>
+        </WorkflowsContainer>
+    )
+}
 
-  return (
-    <WorkflowsContainer>
-      <HydrateClient>
-        <ErrorBoundary fallback={<WorkflowsError />}>
-          <Suspense fallback={<WorkflowsLoading />}>
-            <WorkflowsList />
-          </Suspense>
-        </ErrorBoundary>
-      </HydrateClient>
-    </WorkflowsContainer>
-  );
-};
-
-export default Page;
+export default WorkflowPage
