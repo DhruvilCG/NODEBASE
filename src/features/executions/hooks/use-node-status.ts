@@ -17,20 +17,14 @@ export const useNodeStatus = ({
     refreshToken,
 }: UseNodeStatusOptions) => {
     const [status , setStatus] = useState<NodeStatus>("initial");
-    const [isMounted, setIsMounted] = useState(false);
-
-    // Ensure we only run subscriptions on the client
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     const {data} = useInngestSubscription({
         refreshToken,
-        enabled : isMounted, // Only enable after mount (client-side only)
+        enabled : true,
     });
 
     useEffect(() => {
-        if (!isMounted || !data?.length) {
+        if(!data?.length) {
             return;
         };
 
@@ -54,7 +48,7 @@ export const useNodeStatus = ({
         if (latestMessage?.kind === "data") {
             setStatus(latestMessage.data.status as NodeStatus);
         }
-    }, [data, nodeId , channel, topic, isMounted]);
+    }, [data, nodeId , channel, topic]);
 
 
     return status;
