@@ -1,14 +1,23 @@
-Here is your **copy-paste ready** polished **README.md** for **NodeBase** — clean, professional, and GitHub-formatted:
+
+# 🚀 Autoflow — Modern Workflow Automation (n8n Alternative)
+
+## 🎬 Project Walkthrough Video
+
+[![Watch the video](https://img.youtube.com/vi/zeBDFVcxWwg/0.jpg)](https://www.youtube.com/watch?v=zeBDFVcxWwg)
+
+[Watch on YouTube](https://www.youtube.com/watch?v=zeBDFVcxWwg)
 
 ---
 
-# 🚀 NodeBase — Modern Workflow Automation (n8n Alternative)
+## 🚀 Live Demo
 
-**NodeBase** is an open-source, modern automation platform inspired by **n8n**, built to help developers, teams, and creators automate workflows with ease.
+[https://autoflow-x4fh.onrender.com](https://autoflow-x4fh.onrender.com)
+
+---
+
+
+**Autoflow** is an open-source, modern automation platform inspired by **n8n**, built to help developers, teams, and creators automate workflows with ease.
 It provides a powerful visual interface, node-based execution engine, and seamless integrations with popular AI, communication, and SaaS platforms.
-
-🔗 **Live Demo:** [https://nodebase-mauve.vercel.app](https://nodebase-mauve.vercel.app)
-✨ **Status:** Active Development
 
 ---
 
@@ -26,7 +35,8 @@ It provides a powerful visual interface, node-based execution engine, and seamle
 
 ### 🤖 AI Integrations
 
-NodeBase comes with plug-and-play AI node integrations:
+
+Autoflow comes with plug-and-play AI node integrations:
 
 * **Google Gemini AI**
 * **Anthropic Claude**
@@ -150,26 +160,4 @@ Feel free to open **issues**, suggest features, or report bugs.
 
 ---
 
-## 🙏 Acknowledgments
 
-This project was built with major guidance and support from **Antonio**.
-I learned a lot from his code, architecture patterns, and best practices that shaped NodeBase into what it is today.
-Thank you for the inspiration and mentorship.
-
----
-
-## 📄 License
-
-MIT License — free to use, modify, and distribute.
-
----
-
-If you'd like, I can also add:
-
-✅ A logo banner
-✅ Architecture diagram
-✅ Node installation tutorial
-✅ Table of contents
-✅ Contribution guidelines file (CONTRIBUTING.md)
-
-Just tell me!
